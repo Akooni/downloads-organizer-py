@@ -34,7 +34,7 @@ def organize_files():
     # 5. call get_category(ext)
             category = get_category(ext)
     # 6. print file + category
-            print(f"file: {item} | category: {category}")
+            print(f"file: {item.name} → {category}")
 
 
 
