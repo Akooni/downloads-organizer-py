@@ -1,7 +1,6 @@
 from pathlib import Path
-import mimetypes
 
-file_types = {
+FILE_TYPES = {
     "Images": [".jpg", ".jpeg", ".png", ".gif"],
     "Videos": [".mp4", ".mov", ".avi"],
     "Documents": [".pdf", ".docx", ".txt"],
@@ -12,18 +11,32 @@ file_types = {
 
 
 
-download_path = Path.home() / "Downloads"
+DOWNLOAD_PATH = Path.home() / "Downloads"
+LOG_FILE = DOWNLOAD_PATH / "organizer_log.txt"
+
+#decide category from extension 
+def get_category(ext):
+    for name, extensions in FILE_TYPES.items():
+        if ext in extensions:
+            return name
+    
+    return"Other"
+
+def organize_files():
+    # 1. get the downloads folder path
+    DOWNLOAD_PATH = Path.home() / "Downloads"    
+    # 2. loop through each item
+    for item in DOWNLOAD_PATH.iterdir():
+    # 3. skip folders
+        if item.is_file():
+    # 4. extract extension
+            ext = item.suffix.lower()
+    # 5. call get_category(ext)
+            category = get_category(ext)
+    # 6. print file + category
+            print(f"file: {item} | category: {category}")
 
 
-for item in download_path.iterdir():
-    if item.is_file():
-        ext = item.suffix.lower()
-        category = "Other"
 
-
-        for cat_name,extensions in file_types.items():
-            if ext in extensions:
-                category = cat_name
-                break
-
-        print(f"file: {item.name} | ext: {ext} | category: {category}")
+if __name__ == "__main__":
+    organize_files()
