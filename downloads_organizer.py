@@ -22,7 +22,7 @@ def get_category(ext):
     
     return"Other"
 
-def organize_files():
+def organize_files(dry_run = True):
     # 1. get the downloads folder path
     DOWNLOAD_PATH = Path.home() / "Downloads"    
     # 2. loop through each item
@@ -33,8 +33,18 @@ def organize_files():
             ext = item.suffix.lower()
     # 5. call get_category(ext)
             category = get_category(ext)
-    # 6. print file + category
-            print(f"file: {item.name} → {category}")
+
+            target_folder = DOWNLOAD_PATH / category
+            target_folder.mkdir(exist_ok=True)
+            targe_path = target_folder / item.name
+
+            if dry_run:
+                print(f"[DRY-RUN] {item.name} → {category} (would move)")
+
+            else:
+                item.rename(target_path)
+                print(f"[MOVED] ")
+
 
 
 
