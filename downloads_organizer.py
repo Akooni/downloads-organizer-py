@@ -36,14 +36,14 @@ def organize_files(dry_run = True):
 
             target_folder = DOWNLOAD_PATH / category
             target_folder.mkdir(exist_ok=True)
-            targe_path = target_folder / item.name
+            target_path = target_folder / item.name
 
             if dry_run:
                 print(f"[DRY-RUN] {item.name} → {category} (would move)")
 
             else:
                 item.rename(target_path)
-                print(f"[MOVED] ")
+                print(f"[MOVED] {item.name} → {category}")
 
 
 
